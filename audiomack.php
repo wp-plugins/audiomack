@@ -3,7 +3,7 @@
   Plugin Name: Audiomack
   Plugin URI: http://www.audiomack.com/wordpress/
   Description: Audiomack is the place for artists to effortlessly share their music and for fans to discover and download free songs and albums.
-  Version: 1.1.9
+  Version: 1.2.0
   Author: Audiomack.com
   Author URI: http://audiomack.com
   License: GPL2
@@ -323,7 +323,7 @@ function audiomack_settings_page() {
 	<div id="icon-options-general" class="icon32"></div>
     <h2>Audiomack</h2>
 	<p>
-        This plugin allows you to embed a song or an album from <a href="http://www.audiomack.com/" target="_blank">Audiomack</a> on your site.
+        This plugin allows you to embed a song or an album from <a href="http://www.audiomack.com/?utm_source=audiomack_plugin&utm_medium=plugin_settings" target="_blank">Audiomack</a> on your site.
     </p>
     
     <?php if (!empty($saved)) : ?>
@@ -461,8 +461,8 @@ function audiomack_settings_page() {
 					<div class="postbox">
                         <h3><span>Support &amp; Feature Requests</span></h3>
 						<div class="inside">
-                            If you have suggestions or run into an issue please email us at <a href="mailto:support@audiomack.com?subject=audiomack wp plugin">support@audiomack.com</a>.
-                            Please do NOT use the WordPress forums or other places to seek support.
+                            If you have suggestions or run into an issue please email us at
+                                <a href="mailto:support@audiomack.com?subject=audiomack wp plugin">support@audiomack.com</a>
 						</div> <!-- .inside -->
 					</div> <!-- .postbox -->
 
@@ -474,6 +474,33 @@ function audiomack_settings_page() {
                                     <a href="http://www.youtube.com/watch?v=dA3PU91jf0c&feature=youtu.be" class="button-primary"
                                                         target="_blank">View Demo</a>
                                 </div>
+                            </div>
+						</div> <!-- .inside -->
+					</div> <!-- .postbox -->
+
+					<div class="postbox">
+                        <h3><span>Social Media</span></h3>
+						<div class="inside">
+                            <div>
+                                <a class="twitter-follow-button"
+                                    href="https://twitter.com/audiomack"
+                                    data-show-count="false"
+                                    data-lang="en">
+                                  Follow @Audiomack
+                                  </a>
+                                  <script type="text/javascript">
+                                  window.twttr = (function (d, s, id) {
+                                    var t, js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src= "https://platform.twitter.com/widgets.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                    return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
+                                  }(document, "script", "twitter-wjs"));
+                                  </script>
+                            </div>
+                            <div>
+                                <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Faudiomack&amp;width=250&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false&amp;appId=1514354758831453" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:258px;" allowTransparency="true"></iframe>
                             </div>
 						</div> <!-- .inside -->
 					</div> <!-- .postbox -->
