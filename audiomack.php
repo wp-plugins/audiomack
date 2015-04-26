@@ -3,7 +3,7 @@
   Plugin Name: Audiomack
   Plugin URI: http://www.audiomack.com/wordpress/
   Description: Audiomack is the place for artists to effortlessly share their music and for fans to discover and download free songs and albums.
-  Version: 1.2.1
+  Version: 1.2.2
   Author: Audiomack.com
   Author URI: http://audiomack.com
   License: GPL2
@@ -143,7 +143,7 @@ function audiomack_shortcode_audiomack($attr = array()) {
      * - Song Slim - 62px
      */
     if (stripos($embed_src, '/song/') !== false) { // song
-        if ($opts['player_style'] == 'thin' || !empty($opts['slim']) ) {
+        if ($opts['player_style'] == 'thin') {
             $height = 62;
             $embed_src = str_replace('/song/', "/$embed_ver_prefix-thin/", $embed_src);
         } elseif ($opts['player_style'] == 'large') {
@@ -298,7 +298,7 @@ function audiomack_settings_page() {
 
     if (!empty($_POST)) {
         // this is a checkbox so if no value is passed we'll assume it's unchecked.
-        $current_options['slim'] = empty($_REQUEST['slim']) ? 0 : 1;
+        
         $current_options_keys = array_keys($current_options);
 
         foreach ($_REQUEST as $key => $value) {
@@ -391,12 +391,12 @@ function audiomack_settings_page() {
                                                 <?php endif; ?>
 
                                                 <tr valign="top">
-                                                    <th scope="row"><label for="slim">Song Player Style</label></th>
+                                                    <th scope="row"><label for="thin">Song Player Style</label></th>
                                                     <td>
 
-                                                        <input id="app_player_slim" name="player_style" type="radio" value="thin"
-                                                            <?php checked('slim', $current_options['player_style']); ?> />
-                                                            <label for="app_player_slim"> Slim</label> <br/>
+                                                        <input id="app_player_thin" name="player_style" type="radio" value="thin"
+                                                            <?php checked('thin', $current_options['player_style']); ?> />
+                                                            <label for="app_player_thin"> Thin</label> <br/>
 
                                                         <input id="app_player_standard" name="player_style" type="radio" value="standard"
                                                             <?php checked('standard', $current_options['player_style']); ?> />
