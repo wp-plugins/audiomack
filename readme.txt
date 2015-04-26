@@ -50,7 +50,10 @@ n/a
 
 = 1.2.1 =
 * Tested with WP 4.2
-* Deactivated color pickers for now.
+* Deactivated color pickers for now and no custom colors are passed to the embed end point.
+* Added Player Style property which can be: thin, standard and large (default).
+* Users who have used the old slim option in the past will be converted to Player Style 'thin'
+* Pushed the version to 1.2.1
 
 = 1.2.0 =
 * Tested with WP 4.1

@@ -3,7 +3,7 @@
   Plugin Name: Audiomack
   Plugin URI: http://www.audiomack.com/wordpress/
   Description: Audiomack is the place for artists to effortlessly share their music and for fans to discover and download free songs and albums.
-  Version: 1.2.0
+  Version: 1.2.1
   Author: Audiomack.com
   Author URI: http://audiomack.com
   License: GPL2
@@ -132,8 +132,9 @@ function audiomack_shortcode_audiomack($attr = array()) {
     // http://www.audiomack.com/embed3/hiphopfeeling/nowish?c1=fc881e&bg=f2f2f2&c2=222222
     // http://www.audiomack.com/embed3-album/tutankhamun-brothers/whats-a-black-beatle?c1=fc881e&bg=f2f2f2&c2=222222
     $embed_src = $src;
-    $width = $opts['width']; // % or a number
-    $height = 144;
+    $width = empty($opts['width']) ? '100%' : $opts['width']; // % or a number
+    $height = 110;
+    $embed_ver_prefix = 'embed4';
 
     /*
      * The height of the player based on the embedded media
@@ -142,24 +143,29 @@ function audiomack_shortcode_audiomack($attr = array()) {
      * - Song Slim - 62px
      */
     if (stripos($embed_src, '/song/') !== false) { // song
-        if (!empty($opts['slim'])) {
+        if ($opts['player_style'] == 'thin' || !empty($opts['slim']) ) {
             $height = 62;
-            $embed_src = str_replace('/song/', '/embed3-thin/', $embed_src);
+            $embed_src = str_replace('/song/', "/$embed_ver_prefix-thin/", $embed_src);
+        } elseif ($opts['player_style'] == 'large') {
+            $height = 250;
+            $embed_src = str_replace('/song/', "/$embed_ver_prefix-large/", $embed_src);
         } else {
-            $embed_src = str_replace('/song/', '/embed3/', $embed_src);
+            $height = 110;
+            $embed_src = str_replace('/song/', "/$embed_ver_prefix/", $embed_src);
         }
     } else {
         $height = 352;
-        $embed_src = str_replace('/album/', '/embed3-album/', $embed_src);
+        $embed_src = str_replace('/album/', "/$embed_ver_prefix-album/", $embed_src);
     }
 
     // the embed code expects the colours not to have pound signs
-    $player_opts['c1'] = $opts['player_color'];
+    // tmp deactivate color customizations.
+    /*$player_opts['c1'] = $opts['player_color'];
     $player_opts['c2'] = $opts['text_color'];
     $player_opts['bg'] = $opts['background_color'];
 
     $player_params = http_build_query($player_opts);
-    $embed_src .= '?' . $player_params;
+    $embed_src .= '?' . $player_params;*/
 
     $height_str = "height='$height'";
     $embed_code = "<iframe src='$embed_src' scrolling='no' width='$width' $height_str scrollbars='no' frameborder='0'></iframe>\n";
@@ -245,12 +251,20 @@ function audiomack_get_options() {
         'player_color' => 'fc881e',
         'background_color' => 'f2f2f2',
         'text_color' => '222222',
-        'slim' => '', // for songs only
+        'player_style' => 'large', // for songs only; new since 1.2.1
+        'slim' => '', // for songs only ; not used anymore.
     );
 
     // if you change the key update the uninstall.php too
     $current_options = get_option('audiomack_options', $defaults);
     $current_options = array_merge($defaults, $current_options);
+
+    // Let's take care of old users who have used the 'slim' player option.
+    // We'll remove that option and set 'player_style' property to 'thin'
+    if (!empty($current_options['slim'])) {
+        $current_options['slim'] = '';
+        $current_options['player_style'] = 'thin';
+    }
 
     return $current_options;
 }
@@ -270,9 +284,6 @@ function audiomack_set_options($opts) {
 
         $opts[$key] = $value;
     }
-
-    // this is a checkbox so if no value is passed we'll assume it's unchecked.
-    $opts['slim'] = empty($opts['slim']) ? 0 : 1;
 
     update_option('audiomack_options', $opts);
 
@@ -380,6 +391,24 @@ function audiomack_settings_page() {
                                                 <?php endif; ?>
 
                                                 <tr valign="top">
+                                                    <th scope="row"><label for="slim">Song Player Style</label></th>
+                                                    <td>
+
+                                                        <input id="app_player_slim" name="player_style" type="radio" value="thin"
+                                                            <?php checked('slim', $current_options['player_style']); ?> />
+                                                            <label for="app_player_slim"> Slim</label> <br/>
+
+                                                        <input id="app_player_standard" name="player_style" type="radio" value="standard"
+                                                            <?php checked('standard', $current_options['player_style']); ?> />
+                                                            <label for="app_player_standard"> Standard</label> <br/>
+                                                            
+                                                        <input id="app_player_large" name="player_style" type="radio" value="large"
+                                                            <?php checked('large', $current_options['player_style']); ?> />
+                                                            <label for="app_player_large"> Large</label> <br/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr valign="top">
                                                     <th scope="row"><label for="width">Width (% or number):</label></th>
                                                     <td>&nbsp;&nbsp;<input maxlength="10" size="4" id="width" name="width"
                                                                            autocomplete="off"
@@ -388,12 +417,7 @@ function audiomack_settings_page() {
                                                         e.g. 100% or 250 (&larr; in pixels)
                                                     </td>
                                                 </tr>
-                                                <tr valign="top">
-                                                    <th scope="row"><label for="slim">Slim Player</label></th>
-                                                    <td><input id="slim" name="slim" type="checkbox" value="1" <?php checked(1, $current_options['slim']); ?> />
-                                                        <label for="slim">Enable Slim Player (for songs only)</label>
-                                                    </td>
-                                                </tr>
+                                                
                                                 <tr valign="top">
                                                     <td>
                                                         <input type="submit" name="save_settings" value="Save Changes" class="button-primary" />
