@@ -3,7 +3,7 @@ Contributors: audiomack,lordspace
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7APYDVPBCSY9A
 Tags: wordpress,wp,plugins,mp3,audio,music,artist,artists,soundcloud, html5, flash, player, embed,embed code,shortcode,
 Requires at least: 3.0.0
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 1.2.0
 License: GPLv2 or later
 
@@ -47,6 +47,10 @@ If you have suggestions or run into an issue please email us at <a href="mailto:
 n/a
 
 == Changelog ==
+
+= 1.2.1 =
+* Tested with WP 4.2
+* Deactivated color pickers for now.
 
 = 1.2.0 =
 * Tested with WP 4.1

@@ -352,30 +352,33 @@ function audiomack_settings_page() {
 
                                             <!-- Settings Table -->
                                             <table class="widefat0">
-                                                <tr valign="top">
-                                                    <th scope="row"><label for="player_color">Player Color:</label></th>
-                                                    <td><input maxlength="10" size="4" id="player_color" name="player_color"
-                                                               autocomplete="off"
-                                                               value="#<?php echo esc_attr($current_options['player_color']); ?>" />
-                                                        <div id="player_color_picker"></div>
-                                                    </td>
-                                                </tr>
-                                                <tr valign="top">
-                                                    <th scope="row"><label for="background_color">Player Background Color:</label></th>
-                                                    <td><input maxlength="10" size="4" id="background_color" name="background_color"
-                                                               autocomplete="off"
-                                                               value="#<?php echo esc_attr($current_options['background_color']); ?>" />
-                                                        <div id="background_color_picker"></div>
-                                                    </td>
-                                                </tr>
-                                                <tr valign="top">
-                                                    <th scope="row"><label for="text_color">Text Color:</label></th>
-                                                    <td><input maxlength="10" size="4" id="text_color" name="text_color"
-                                                               autocomplete="off"
-                                                               value="#<?php echo esc_attr($current_options['text_color']); ?>" />
-                                                        <div id="text_color_picker"></div>
-                                                    </td>
-                                                </tr>
+                                                <?php if (0) : /* D asked me to hide these just for now */ ?>
+                                                    <tr valign="top">
+                                                        <th scope="row"><label for="player_color">Player Color:</label></th>
+                                                        <td><input maxlength="10" size="4" id="player_color" name="player_color"
+                                                                   autocomplete="off"
+                                                                   value="#<?php echo esc_attr($current_options['player_color']); ?>" />
+                                                            <div id="player_color_picker"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr valign="top">
+                                                        <th scope="row"><label for="background_color">Player Background Color:</label></th>
+                                                        <td><input maxlength="10" size="4" id="background_color" name="background_color"
+                                                                   autocomplete="off"
+                                                                   value="#<?php echo esc_attr($current_options['background_color']); ?>" />
+                                                            <div id="background_color_picker"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr valign="top">
+                                                        <th scope="row"><label for="text_color">Text Color:</label></th>
+                                                        <td><input maxlength="10" size="4" id="text_color" name="text_color"
+                                                                   autocomplete="off"
+                                                                   value="#<?php echo esc_attr($current_options['text_color']); ?>" />
+                                                            <div id="text_color_picker"></div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+
                                                 <tr valign="top">
                                                     <th scope="row"><label for="width">Width (% or number):</label></th>
                                                     <td>&nbsp;&nbsp;<input maxlength="10" size="4" id="width" name="width"
